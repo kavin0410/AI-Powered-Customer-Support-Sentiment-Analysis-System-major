@@ -31,5 +31,5 @@ def predict_feedback(request: PredictionRequest):
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Inference engine failure: {str(e)}"
+            detail="Unable to process feedback prediction. Please ensure machine learning models are available."
         )

@@ -2,8 +2,11 @@
 FastAPI application entrypoint and route orchestrator.
 """
 
+import logging
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, status
+from fastapi import FastAPI, Request, status, HTTPException
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.core.config import PROJECT_NAME, VERSION, DESCRIPTION, CORS_ORIGINS
@@ -17,24 +20,31 @@ from backend.app.api.feedback import router as feedback_router
 from backend.app.api.analytics import router as analytics_router
 from backend.app.api.insights import router as insights_router
 
+# Configure production logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+)
+logger = logging.getLogger("backend.app")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
     Lifespan context manager to initialize SQLite database and pre-load ML pipelines.
     """
-    print("[STARTUP] Initializing SQLite database...")
+    logger.info("Initializing SQLite database...")
     init_db()
 
-    print("[STARTUP] Pre-loading ML pipelines...")
+    logger.info("Pre-loading ML pipelines...")
     try:
         get_models()
-        print("[STARTUP] ML models successfully pre-loaded and ready for inference.")
+        logger.info("ML models successfully pre-loaded and ready for inference.")
     except Exception as e:
-        print(f"[STARTUP ERROR] Model loading error: {str(e)}")
+        logger.error("Model loading error occurred during startup: %s", str(e))
 
     yield
-    print("[SHUTDOWN] Cleaning up server resources...")
+    logger.info("Cleaning up server resources upon shutdown.")
 
 
 app = FastAPI(
@@ -46,10 +56,40 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
+# Centralized error handler for Pydantic validation errors (HTTP 422)
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    errors = []
+    for err in exc.errors():
+        loc = " -> ".join([str(l) for l in err.get("loc", []) if l != "body"])
+        msg = err.get("msg", "Invalid input value")
+        errors.append(f"{loc}: {msg}" if loc else msg)
+    
+    error_msg = "; ".join(errors) if errors else "Validation failed for request parameters."
+    logger.warning("Validation error on %s %s: %s", request.method, request.url.path, error_msg)
+    return JSONResponse(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        content={"detail": error_msg}
+    )
+
+# Centralized generic exception handler preventing stack trace leakage (HTTP 500)
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    if isinstance(exc, HTTPException):
+        return JSONResponse(
+            status_code=exc.status_code,
+            content={"detail": exc.detail}
+        )
+    logger.error("Unhandled internal exception on %s %s: %s", request.method, request.url.path, str(exc), exc_info=True)
+    return JSONResponse(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content={"detail": "An internal server error occurred. Please try again later or contact support."}
+    )
+
 # CORS Middleware for React frontend (Vite port 5173 and others)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS + ["*"],  # Allows local frontend seamlessly
+    allow_origins=CORS_ORIGINS + ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -77,8 +117,8 @@ def health_check():
         sent_m, issue_m = get_models()
         sent_loaded = sent_m is not None
         issue_loaded = issue_m is not None
-    except Exception:
-        pass
+    except Exception as e:
+        logger.warning("Health check model inspection: %s", str(e))
 
     try:
         conn = get_db_connection()
@@ -87,8 +127,8 @@ def health_check():
         total_records = cursor.fetchone()[0]
         conn.close()
         db_connected = True
-    except Exception:
-        pass
+    except Exception as e:
+        logger.error("Health check database inspection failure: %s", str(e))
 
     return HealthResponse(
         status="healthy" if (sent_loaded and issue_loaded and db_connected) else "degraded",

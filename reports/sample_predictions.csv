@@ -1,0 +1,25 @@
+text,predicted_sentiment,sentiment_confidence,predicted_issue,issue_confidence,attention_level
+The product quality is absolutely outstanding and exceeded all my expectations!,Positive,0.5882,Product Issue,0.6518,Low
+My package was delivered ahead of schedule and packaged with care.,Negative,0.6994,Delivery Issue,0.6919,Medium
+Payment was processed smoothly and the invoice was received instantly.,Positive,0.436,Payment Issue,0.7701,Low
+The software updated seamlessly without any glitches or downtime.,Positive,0.3973,Technical Issue,0.3487,Low
+Customer service went above and beyond to assist me with my inquiry.,Positive,0.6886,Service Issue,0.6596,Low
+"Overall great shopping experience with your company, keep up the good work!",Positive,0.6268,General Feedback,0.3808,Low
+"The item broke within two days of normal use, very poor quality.",Negative,0.6395,Product Issue,0.6319,Medium
+My delivery is five days late and the courier is not responding.,Negative,0.58,Delivery Issue,0.7309,Medium
+Money was deducted from my account but the checkout failed and order was cancelled.,Negative,0.7175,Payment Issue,0.6845,High
+The application keeps crashing every time I try to open the settings tab.,Negative,0.5909,Technical Issue,0.3812,Medium
+The support agent was extremely rude and unhelpful on the phone.,Negative,0.8391,Service Issue,0.9075,High
+"Terrible experience overall, I demand a full refund and explanation.",Negative,0.5681,Payment Issue,0.3139,Medium
+Can you provide more information about the specifications of this model?,Negative,0.4656,Product Issue,0.3193,Medium
+When will my package be dispatched from the central sorting warehouse?,Negative,0.6363,Delivery Issue,0.4934,Medium
+Does your payment portal accept international debit cards?,Negative,0.5882,Payment Issue,0.7082,Medium
+Is there an updated version of the mobile app available for download?,Negative,0.6197,Technical Issue,0.5528,Medium
+I would like to inquire about the terms of your return policy.,Negative,0.5993,Product Issue,0.3446,Medium
+Just submitting general feedback regarding the website layout and color scheme.,Negative,0.4358,General Feedback,0.463,Medium
+Received the wrong size and color compared to what I ordered online.,Negative,0.7483,Product Issue,0.3735,High
+The delivery driver left my package out in the heavy rain without notification.,Negative,0.7696,Delivery Issue,0.8716,High
+Double charged on my credit card statement for a single transaction.,Negative,0.7375,Payment Issue,0.7439,High
+Login authentication fails repeatedly with a 500 error code on your portal.,Negative,0.5197,Technical Issue,0.4813,Medium
+"Representative Sarah resolved my issue in under three minutes, brilliant service!",Positive,0.5565,Service Issue,0.5798,Low
+The product looks fine but the instructions manual was completely missing.,Negative,0.5311,Product Issue,0.5134,Medium

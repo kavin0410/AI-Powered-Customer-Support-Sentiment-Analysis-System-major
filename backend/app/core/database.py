@@ -35,6 +35,9 @@ def init_db():
             created_at TEXT NOT NULL
         )
     """)
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_feedback_sentiment ON feedback(sentiment)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_feedback_category ON feedback(issue_category)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_feedback_date ON feedback(feedback_date)")
     conn.commit()
 
     # Check if table already contains data

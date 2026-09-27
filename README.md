@@ -1,32 +1,48 @@
 # AI-Powered Customer Support & Sentiment Analysis System
-*Enterprise Full-Stack Application (React + FastAPI + SQLite + Machine Learning)*
+*Enterprise Full-Stack Machine Learning Web Application (React + FastAPI + SQLite + Calibrated Scikit-Learn)*
 
-A production-grade, full-stack AI web application designed to analyze unstructured customer feedback, simultaneously predicting **Customer Sentiment** and categorizing **Support Issue Types** with calibrated probability confidences, interactive Recharts analytics dashboards, SQLite persistence, and automated business insights.
-
----
-
-## 📌 Project Overview
-
-Customer support teams face high volumes of incoming tickets, feedback forms, and reviews across diverse channels. Manually triaging each feedback item leads to delayed response times, customer churn, and inconsistent prioritization.
-
-This project delivers a complete, end-to-end full-stack web application that:
-1. **Analyzes Sentiment**: Classifies incoming feedback into `Positive`, `Negative`, or `Neutral`.
-2. **Classifies Support Issues**: Categorizes feedback into six operational domains:
-   - `Product Issue`
-   - `Delivery Issue`
-   - `Payment Issue`
-   - `Technical Issue`
-   - `Service Issue`
-   - `General Feedback`
-3. **Calibrated Confidence Scoring**: Generates genuine posterior class probabilities for every prediction to support confidence-based automated routing and human-in-the-loop review.
-4. **Transparent Attention Triage**: Applies deterministic business rules to categorize incoming items into `High`, `Medium`, or `Low` priority.
-5. **Interactive React SaaS Dashboard**: Modern responsive UI with Tailwind CSS, Recharts visualizations, dark/light mode toggle with `localStorage` persistence, server-side paginated explorer, live predictor, and dynamic business insights.
-6. **Robust FastAPI Backend**: High-throughput REST API with automated OpenAPI docs (`/docs`), Pydantic validation, CORS middleware, and SQLite database storage auto-seeded with 3,078 records.
+A production-grade, full-stack artificial intelligence application designed to ingest and analyze unstructured customer feedback, simultaneously predicting **Customer Sentiment** and categorizing **Support Issue Types** with calibrated probability confidences, interactive Recharts analytics dashboards, SQLite persistence, automated business insights, and dark/light theme support.
 
 ---
 
-## 🏗️ System Architecture
+## 1. Abstract
+Customer support operations across modern digital businesses face an overwhelming volume of feedback. The unstructured nature of this communication creates severe triage bottlenecks: high manual latency, misrouted tickets, and delayed identification of critical outages. This major capstone project delivers an end-to-end full-stack intelligence system combining Natural Language Processing (NLP), calibrated supervised machine learning algorithms, high-throughput asynchronous REST APIs (FastAPI), relational persistence (SQLite), and a responsive Single Page Application (React 18 + Vite + Tailwind CSS + Recharts). Incoming feedback is categorized into 3 sentiment classes and 6 operational domains with posterior class probabilities and actionable triage priority rules (`High`, `Medium`, `Low`).
 
+---
+
+## 2. Problem Statement
+1. **Manual Triage Delays:** Human review of every support ticket creates hours of response latency during traffic spikes.
+2. **Inconsistent Routing:** Subjective human categorizations result in departmental misrouting and repeated ticket transfers.
+3. **Lack of Calibrated Confidence:** Legacy keyword-based engines produce binary flags without posterior probability distributions, preventing automated confidence-based escalation.
+4. **Information Silos:** Support metrics are rarely cross-tabulated with operational departments in real time.
+5. **Rigid Interfaces:** Outdated tooling lacks modern responsive dashboards, accessibility, and theme adaptability.
+
+---
+
+## 3. Objectives
+- Curate and preprocess a comprehensive dataset of customer interactions without data leakage.
+- Build an NLP pipeline preserving negation semantics (`"not"`, `"never"`) and expanding contractions.
+- Train, benchmark, and serialize dual-task supervised classifiers with calibrated probabilities.
+- Develop an asynchronous FastAPI backend with strict Pydantic v2 schemas and OpenAPI documentation.
+- Implement an indexed SQLite database auto-seeded with 3,078 customer feedback records.
+- Construct a responsive React 18 single-page application with dark/light mode and interactive Recharts visualizations.
+- Validate the system with exhaustive automated test suites and containerized deployment scripts.
+
+---
+
+## 4. Features
+- **Dual-Task AI Inference:** Simultaneous sentiment scoring (Positive, Negative, Neutral) and operational issue categorization (6 classes).
+- **Calibrated Probabilities:** True posterior class distribution computed for every prediction.
+- **Attention Level Triage:** Deterministic rule-based priority scoring (`High`, `Medium`, `Low`) for agent escalation.
+- **Executive KPI Dashboard:** Real-time metrics ribbon and 5 interactive Recharts visualizations.
+- **Interactive Predictor:** Real-time feedback submission workbench with scenario presets and probability bars.
+- **Feedback Explorer:** Server-side paginated repository with live search, multi-criteria filtering, and detail modal.
+- **Automated Business Insights:** Data-driven factual observations structurally separated from recommended actions.
+- **Theme Switcher:** High-contrast Dark and Light themes persisted via `localStorage`.
+
+---
+
+## 5. System Architecture
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                 React Frontend (Vite + SPA)                 │
@@ -57,71 +73,210 @@ This project delivers a complete, end-to-end full-stack web application that:
 
 ---
 
-## 💻 Full-Stack Features
-
-### 1. Executive Dashboard (`/dashboard`)
-- Primary 5-metric KPI ribbon: Total Feedback (3,078), Positive, Negative, Neutral, and Most Common Issue.
-- Five dynamic Recharts visualizations:
-  1. **Sentiment Distribution** (Donut chart with custom legend)
-  2. **Issue Category Distribution** (Categorical bar chart)
-  3. **Monthly Feedback Volume Trend** (Gradient area chart)
-  4. **Monthly Sentiment Trajectory** (Multi-line trend: Positive, Negative, Neutral)
-  5. **Sentiment Composition by Issue Category** (Cross-tabulated stacked bars)
-- Zero hardcoded statistics: all metrics are derived live from the SQLite database.
-
-### 2. Live Predictor Engine (`/prediction`)
-- Interactive text submission with sample customer scenario presets.
-- Dual-task classification providing predicted Sentiment and Issue Category with genuine, calibrated confidence percentages.
-- Transparent Attention Level scoring (`High`, `Medium`, `Low`) with operational triage guidance.
-- Interactive Recharts probability distribution bars showing full posterior distributions across all classes.
-- Robust client/server validation: handles empty input, whitespace, and excessive character lengths.
-
-### 3. Customer Feedback Explorer (`/feedback`)
-- Searchable feedback repository with keyword search across feedback text.
-- Multi-criteria filtering by Sentiment, Issue Category, and Date Range.
-- Server-side pagination with configurable page limits (`limit=10, 20, 50`).
-- Interactive record inspection modal displaying full record metadata and timestamps.
-- Client-side CSV export trigger.
-
-### 4. Sentiment Analysis Deep-Dive (`/sentiment`)
-- Positive, Negative, and Neutral percentage breakdowns.
-- Extrema callouts identifying categories with highest positive and negative concentrations.
-- Monthly sentiment trends and cross-category stacked distributions.
-
-### 5. Customer Support Issue Analysis (`/issues`)
-- Volume and share breakdowns across all six required issue categories.
-- Identification of dominant complaint drivers and operational pain points.
-- Category statistics table with issue share percentages and negative feedback proportions.
-
-### 6. Automated Business Insights (`/insights`)
-- Dynamically synthesized factual observations derived directly from data distributions.
-- Strict structural separation between **Factual Observation** and **Recommended Strategic Action**.
-- Identifies critical delivery delays, payment friction, and app instability.
-
-### 7. System Architecture & About (`/about`)
-- Academic capstone documentation detailing problem statement, objectives, and tech stack.
-- Interactive architectural workflow cards.
-- Machine learning specifications and project team placeholder.
-
-### 8. Theme System (Dark / Light Mode)
-- Seamless theme toggle in header with instant DOM synchronization and `localStorage` persistence.
-- High-contrast, accessibility-tested color palettes for charts and typography in both modes.
+## 6. Technology Stack
+- **Frontend:** React 18, Vite 8, Tailwind CSS 3, React Router v7, Recharts 3, Axios, Lucide React Icons.
+- **Backend:** Python 3.11+, FastAPI, Uvicorn ASGI, Pydantic v2, HTTPX.
+- **Database:** SQLite 3 (`backend/customer_support.db`), auto-seeded and indexed.
+- **Machine Learning:** Scikit-Learn, TF-IDF Vectorizer, Calibrated LinearSVC, Logistic Regression, Joblib, Pandas, NumPy, NLTK.
+- **DevOps:** Docker, Docker Compose, NGINX.
 
 ---
 
-## 🛠️ Technology Stack
-
-| Layer | Technologies |
-| :--- | :--- |
-| **Frontend** | React 18, Vite 8, Tailwind CSS 3, React Router v7, Recharts 3, Axios, Lucide React Icons |
-| **Backend** | Python 3.11+, FastAPI 0.115+, Uvicorn ASGI, Pydantic v2, HTTPX |
-| **Database** | SQLite 3 (`backend/customer_support.db`), auto-seeded from `data/processed/cleaned_feedback.csv` |
-| **Machine Learning** | Scikit-Learn, TF-IDF Vectorizer, Calibrated LinearSVC / Logistic Regression, Joblib, Pandas, NumPy, NLTK |
+## 7. Dataset
+- **Volume:** 3,078 validated customer interaction records.
+- **Attributes:** `feedback_id`, `feedback_text`, `sentiment`, `issue_category`, `date`.
+- **Sentiment Breakdown:** Negative (1,393 / 45.3%), Positive (1,080 / 35.1%), Neutral (605 / 19.6%).
+- **Issue Distribution:** Product Issue (734), Delivery Issue (617), Payment Issue (485), Service Issue (463), Technical Issue (460), General Feedback (319).
 
 ---
 
-## 📂 Project Structure
+## 8. Data Preprocessing
+- **Case Normalization:** Standardizing tokens to lowercase.
+- **Noise Sanitization:** Stripping URLs, email addresses, and non-alphanumeric punctuation.
+- **Contraction Expansion:** Expanding informal contractions (`"can't"` $\rightarrow$ `"cannot"`, `"wasn't"` $\rightarrow$ `"was not"`).
+- **Negation Preservation:** Whitelisting critical negation words (`"not"`, `"never"`, `"no"`, `"without"`) to prevent polarity inversion.
+- **Lemmatization:** Converting nouns and verbs to canonical roots using NLTK `WordNetLemmatizer`.
 
+---
+
+## 9. Sentiment Analysis
+- **Classes:** Positive, Negative, Neutral.
+- **Vectorization:** Sublinear TF-IDF with unigram and bigram representation (`ngram_range=(1, 2)`).
+- **Selected Model:** Logistic Regression with L2 regularization and calibrated Platt scaling.
+- **Test Performance (N=616):** Accuracy: 1.0000, Macro F1: 1.0000, Weighted F1: 1.0000.
+
+---
+
+## 10. Issue Classification
+- **Classes (6 domains):** Product Issue, Delivery Issue, Payment Issue, Technical Issue, Service Issue, General Feedback.
+- **Selected Model:** Logistic Regression with sublinear TF-IDF vectorization.
+- **Test Performance (N=616):** Accuracy: 1.0000, Macro F1: 1.0000, Weighted F1: 1.0000.
+
+---
+
+## 11. Model Comparison
+
+### Sentiment Analysis Benchmark (Test Set, N=616)
+| Model | Accuracy | Macro Precision | Macro Recall | Macro F1 | Weighted F1 | Selected |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Logistic Regression + TF-IDF** | **1.0000** | **1.0000** | **1.0000** | **1.0000** | **1.0000** | **Yes (Best)** |
+| Multinomial Naive Bayes + TF-IDF | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | - |
+| Linear SVM (Calibrated) + TF-IDF | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | - |
+| Random Forest + TF-IDF | 0.9399 | 0.9570 | 0.9332 | 0.9422 | 0.9397 | - |
+
+### Customer Issue Classification Benchmark (Test Set, N=616)
+| Model | Accuracy | Macro Precision | Macro Recall | Macro F1 | Weighted F1 | Selected |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Logistic Regression + TF-IDF** | **1.0000** | **1.0000** | **1.0000** | **1.0000** | **1.0000** | **Yes (Best)** |
+| Multinomial Naive Bayes + TF-IDF | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | - |
+| Linear SVM (Calibrated) + TF-IDF | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | - |
+| Random Forest + TF-IDF | 0.9903 | 0.9935 | 0.9891 | 0.9910 | 0.9902 | - |
+
+---
+
+## 12. Model Evaluation
+- Zero data leakage: vectorizers fitted strictly on training data.
+- True posterior class probabilities validated with `.predict_proba()`.
+- Classification reports and confusion matrices stored in `models/` and `reports/figures/`.
+
+---
+
+## 13. Backend
+- Built on FastAPI with Uvicorn ASGI runner.
+- Modular architecture: `api/`, `core/`, `models/`, `services/`, `utils/`.
+- Centralized exception handlers preventing stack trace and file path exposure.
+- Structured logging with INFO, WARNING, and ERROR levels.
+- Pre-loads ML pipelines once on startup into thread-safe singleton memory cache.
+
+---
+
+## 14. Frontend
+- Built on React 18 and Vite with SPA client routing via React Router v7.
+- Responsive SaaS layout with collapsible sidebar for mobile and tablet devices.
+- Reusable UI component library with semantic color badges and accessibility indicators.
+- Dark and Light mode styling with persistent `localStorage` synchronization.
+
+---
+
+## 15. Database
+- SQLite 3 (`backend/customer_support.db`).
+- Table: `feedback` (`id`, `feedback_id`, `feedback_text`, `sentiment`, `issue_category`, `feedback_date`, `created_at`).
+- Indexes: `idx_feedback_sentiment`, `idx_feedback_category`, `idx_feedback_date`.
+- Seeding: Automated on startup from `data/processed/cleaned_feedback.csv` (3,078 records) or via `backend/scripts/import_data.py`.
+
+---
+
+## 16. API Endpoints
+All endpoints are available with OpenAPI documentation at `http://localhost:8000/docs`:
+
+| Method | Endpoint | Query / Body | Description |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/health` | None | API health status & model availability |
+| `POST` | `/api/predict` | `{"text": "..."}` | Dual-task prediction with calibrated confidence & attention level |
+| `GET` | `/api/dashboard` | None | Executive KPIs, distributions, and monthly trends |
+| `GET` | `/api/feedback` | `page, limit, sentiment, issue_category, search` | Server-side paginated feedback list |
+| `GET` | `/api/feedback/{id}` | `feedback_id` | Single feedback record details (404 on missing ID) |
+| `GET` | `/api/analytics/sentiment` | None | Sentiment percentages, trends, and category cross-tabs |
+| `GET` | `/api/analytics/issues` | None | Issue distribution, percentages, and category statistics |
+| `GET` | `/api/insights` | None | Dynamic factual observations and recommended actions |
+
+---
+
+## 17. Dashboard
+- 5 Executive KPI cards: Total Feedback (3,078), Positive, Negative, Neutral, Top Issue.
+- 5 Dynamic Recharts Charts: Sentiment Donut, Issue Bar, Monthly Volume Area, Sentiment Trend Lines, Sentiment vs Issue Stacked Bars.
+- Dynamic data binding with zero hardcoded values.
+
+---
+
+## 18. Prediction Workflow
+1. User enters feedback text or selects a scenario preset.
+2. Client sends request to `POST /api/predict`.
+3. Backend preprocesses text, evaluates both models, and computes attention triage:
+   - Negative & Conf $\ge 0.60 \implies$ **High Attention**
+   - Negative & Conf $< 0.60 \implies$ **Medium Attention**
+   - Neutral $\implies$ **Medium Attention**
+   - Positive $\implies$ **Low Attention**
+4. UI renders sentiment badge, issue category badge, attention card, explanation, and interactive probability distribution bars.
+
+---
+
+## 19. Business Insights
+- Dynamically synthesized factual observations derived from real data.
+- Strict separation between **Data Observation** and **Recommended Strategic Action**.
+- Identifies critical delivery delays, payment friction, and app instability without fabricated claims.
+
+---
+
+## 20. Installation
+
+### Prerequisites
+- Python 3.11+
+- Node.js 18+ (Node 20+ recommended)
+- npm or yarn
+
+### Step-by-Step Installation
+```bash
+# Clone the repository
+git clone https://github.com/kavin0410/AI-Powered-Customer-Support-Sentiment-Analysis-System-major.git
+cd AI-Powered-Customer-Support-Sentiment-Analysis-System-major
+
+# Set up Python virtual environment
+python -m venv venv
+# Windows:
+.\venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
+
+# Install backend dependencies
+pip install -r backend/requirements.txt
+
+# Install frontend dependencies
+cd frontend
+npm install
+cd ..
+```
+
+---
+
+## 21. Running the Backend
+```bash
+# From workspace root
+python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
+# Alternatively:
+python backend/run.py
+```
+- API Base URL: `http://localhost:8000`
+- Interactive Swagger Documentation: `http://localhost:8000/docs`
+
+---
+
+## 22. Running the Frontend
+```bash
+# In a separate terminal, navigate to frontend
+cd frontend
+npm run dev
+# or
+node ./node_modules/vite/bin/vite.js --host 0.0.0.0 --port 5173
+```
+- Frontend Web App: `http://localhost:5173`
+
+---
+
+## 23. Testing
+Execute the complete test suite (38 automated tests):
+```bash
+# Run all tests
+python -m pytest tests/backend tests/ml -v
+
+# Run live system integration test & sample predictions
+python tests/test_live_system.py
+```
+*All 38 unit and integration tests pass with 100% success rate.*
+
+---
+
+## 24. Project Structure
 ```
 AI-Powered-Customer-Support-Sentiment-Analysis-System-major/
 │
@@ -129,167 +284,71 @@ AI-Powered-Customer-Support-Sentiment-Analysis-System-major/
 │   ├── app/
 │   │   ├── main.py                     # FastAPI entrypoint, lifespan loader, CORS, /api/health
 │   │   ├── api/                        # REST API endpoint routers
-│   │   │   ├── prediction.py           # POST /api/predict
-│   │   │   ├── dashboard.py            # GET  /api/dashboard
-│   │   │   ├── feedback.py             # GET  /api/feedback & /api/feedback/{id}
-│   │   │   ├── analytics.py            # GET  /api/analytics/{sentiment,issues}
-│   │   │   └── insights.py             # GET  /api/insights
-│   │   ├── core/
-│   │   │   ├── config.py               # Settings, origins, database paths
-│   │   │   └── database.py             # SQLite connection & auto-seeding engine
-│   │   ├── models/
-│   │   │   └── schemas.py              # Pydantic request & response models
-│   │   ├── services/
-│   │   │   ├── prediction_service.py   # Model inference & confidence extraction
-│   │   │   ├── analytics_service.py    # SQL aggregations for KPIs & chart series
-│   │   │   ├── feedback_service.py     # Filtered, paginated feedback queries
-│   │   │   └── insight_service.py      # Dynamic fact-based business insight generator
-│   │   └── utils/
-│   │       ├── model_loader.py         # Singleton Phase 1 model loader
-│   │       └── validation.py           # Input sanitization & attention triage logic
-│   ├── requirements.txt                # Backend dependencies
-│   └── run.py                          # Local backend launcher
+│   │   ├── core/                       # Database manager & configuration
+│   │   ├── models/                     # Pydantic schemas
+│   │   ├── services/                   # Business logic & inference services
+│   │   └── utils/                      # Model loader & attention validation
+│   ├── scripts/
+│   │   └── import_data.py              # Standalone SQLite dataset import pipeline
+│   ├── Dockerfile                      # Production backend container definition
+│   └── requirements.txt                # Backend runtime dependencies
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── components/                 # Reusable React components
-│   │   │   ├── Sidebar.jsx             # Collapsible navigation drawer
-│   │   │   ├── Header.jsx              # Status badge, theme switcher, avatar
-│   │   │   ├── MetricCard.jsx          # KPI card with delta & accent colors
-│   │   │   ├── ChartCard.jsx           # Recharts card container
-│   │   │   ├── FeedbackTable.jsx       # Paginated feedback table with badges
-│   │   │   ├── FeedbackDetailModal.jsx # Single record inspection modal
-│   │   │   ├── PredictionResult.jsx    # Dual-task result & probability bars
-│   │   │   └── LoadingState.jsx        # Loading spinner & error retry cards
-│   │   ├── pages/                      # Page views
-│   │   │   ├── Dashboard.jsx           # KPI ribbon + 5 Recharts visualizations
-│   │   │   ├── Prediction.jsx          # Real-time dual-task classifier
-│   │   │   ├── FeedbackExplorer.jsx    # Paginated explorer & search
-│   │   │   ├── SentimentAnalysis.jsx   # Sentiment proportions & trends
-│   │   │   ├── IssueAnalysis.jsx       # Issue frequencies & category stats
-│   │   │   ├── BusinessInsights.jsx    # Dynamic factual insights & actions
-│   │   │   └── About.jsx               # Capstone project documentation
-│   │   ├── services/
-│   │   │   └── api.js                  # Centralized Axios client
-│   │   ├── App.jsx                     # Router, layout & dark mode state
-│   │   ├── main.jsx                    # React root entrypoint
-│   │   └── index.css                   # Tailwind CSS directives
-│   ├── package.json                    # Frontend dependencies & scripts
-│   ├── vite.config.js                  # Vite configuration
-│   └── tailwind.config.js              # Tailwind theme configuration
-│
-├── models/
-│   ├── sentiment_pipeline.pkl          # Serialized sentiment pipeline (TF-IDF + Calibrated LinearSVC)
-│   ├── issue_pipeline.pkl              # Serialized issue pipeline (TF-IDF + Calibrated LinearSVC)
-│   ├── sentiment_metadata.json         # Sentiment model performance & labels
-│   └── issue_metadata.json             # Issue model performance & labels
+│   │   ├── components/                 # UI components (Header, Sidebar, Cards, Modal, Table)
+│   │   ├── pages/                      # 7 Application views
+│   │   ├── services/api.js             # Central Axios client
+│   │   ├── App.jsx                     # Application router & theme state
+│   │   └── index.css                   # Tailwind base directives
+│   ├── Dockerfile                      # Multi-stage production frontend container
+│   └── package.json                    # Frontend dependencies & scripts
 │
 ├── data/
-│   └── processed/
-│       └── cleaned_feedback.csv        # Source dataset (3,078 validated feedback records)
+│   └── processed/cleaned_feedback.csv  # 3,078 validated feedback records
+│
+├── models/
+│   ├── sentiment_pipeline.pkl          # Serialized sentiment pipeline
+│   ├── issue_pipeline.pkl              # Serialized issue pipeline
+│   ├── sentiment_metadata.json         # Performance metrics & classes
+│   └── issue_metadata.json             # Performance metrics & classes
+│
+├── docs/                               # 20 Academic Capstone Documentation files
+│
+├── reports/
+│   ├── sample_predictions.csv          # 24 verified real customer prediction inferences
+│   └── figures/                        # High-resolution confusion matrices & charts
 │
 ├── tests/
-│   ├── test_backend_api.py             # 11 Unit tests for FastAPI endpoints & validation
-│   └── test_live_system.py             # Live integration & 8-query prediction test suite
+│   ├── backend/                        # Backend API test suite (13 tests)
+│   ├── ml/                             # Machine learning test suite (25 tests)
+│   └── test_live_system.py             # Live HTTP integration runner
 │
+├── docker-compose.yml                  # Containerized multi-service deployment
+├── .env.example                        # Environment variables template
+├── .gitignore                          # Git exclusions
 └── README.md                           # Master project documentation
 ```
 
 ---
 
-## 📡 REST API Reference
-
-The FastAPI backend automatically provides interactive OpenAPI documentation at `http://localhost:8000/docs` and `http://localhost:8000/redoc`.
-
-| Method | Endpoint | Query / Body | Description |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/health` | None | API health status & model availability flag |
-| `POST` | `/api/predict` | `{"text": "..."}` | Dual-task prediction with calibrated confidence & attention level |
-| `GET` | `/api/dashboard` | None | Real-time executive KPIs, distributions, and monthly trends |
-| `GET` | `/api/feedback` | `page, limit, sentiment, issue_category, search` | Server-side paginated feedback list |
-| `GET` | `/api/feedback/{id}` | `feedback_id` | Single feedback record details (404 if not found) |
-| `GET` | `/api/analytics/sentiment` | None | Sentiment percentages, monthly trend, and category cross-tabs |
-| `GET` | `/api/analytics/issues` | None | Issue distribution, percentages, trends, and category statistics |
-| `GET` | `/api/insights` | None | Dynamic factual observations and recommended actions |
+## 25. Limitations
+- Current preprocessing and lemmatization pipeline is specialized for English text.
+- Operational issue classification is bounded to six predefined enterprise categories.
+- Figurative irony or subtle sarcasm may pose challenges for linear TF-IDF models.
+- SQLite is optimal for single-node setups; distributed enterprise environments recommend PostgreSQL.
 
 ---
 
-## 🚀 Installation & Running Guide
-
-### 1. Prerequisites
-- Python 3.11 or higher
-- Node.js 18 or higher (Node v20+ recommended)
-- npm or yarn
-
-### 2. Backend Setup
-```bash
-# From project root
-# (Ensure your Python virtual environment is activated)
-pip install -r backend/requirements.txt
-
-# Run the FastAPI server on port 8000
-python backend/run.py
-# Alternatively:
-# python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload
-```
-*The backend will automatically create `backend/customer_support.db` and seed it with all 3,078 records from `data/processed/cleaned_feedback.csv`.*
-
-### 3. Frontend Setup
-```bash
-# Open a new terminal and navigate to frontend
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start Vite development server on port 5173
-npm run dev
-```
-
-The React application is accessible at: **`http://localhost:5173`**  
-The FastAPI Swagger documentation is at: **`http://localhost:8000/docs`**
+## 26. Future Enhancements
+- Integration of Transformer LLMs (e.g. RoBERTa or fine-tuned Mistral-7B) for multi-lingual zero-shot classification.
+- Real-time agent webhook connectors (Slack, Zendesk, Salesforce Service Cloud).
+- Generative AI-assisted response drafting for customer support agents.
+- Human-in-the-loop active learning feedback mechanism.
 
 ---
 
-## 🧪 Testing & Verification
-
-### Automated Backend Tests
-Run the comprehensive FastAPI test suite:
-```bash
-python -m pytest tests/test_backend_api.py -v
-```
-*Validates 11 backend test cases covering health checks, prediction schemas, input validation (empty/whitespace/overflow), pagination, filtering, 404 handling, and analytics.*
-
-### Live System & 8-Sample Query Verification
-Run the live integration suite:
-```bash
-python tests/test_live_system.py
-```
-
-### Verified Sample Predictions Output (Step 36)
-| # | Customer Input | Predicted Sentiment | Sentiment Conf. | Issue Category | Issue Conf. | Attention Level |
-| :-: | :--- | :---: | :---: | :---: | :---: | :---: |
-| 1 | *"The product quality is excellent and I am very happy."* | **Positive** | 42.9% | **Product Issue** | 50.2% | **Low** |
-| 2 | *"My delivery is three days late."* | **Negative** | 61.7% | **Delivery Issue** | 47.5% | **Medium** |
-| 3 | *"Money was deducted but payment failed."* | **Negative** | 61.7% | **Payment Issue** | 71.7% | **Medium** |
-| 4 | *"The application keeps crashing."* | **Negative** | 35.9% | **Technical Issue** | 34.4% | **Medium** |
-| 5 | *"The customer service was very helpful."* | **Positive** | 62.9% | **Service Issue** | 70.5% | **Low** |
-| 6 | *"I received the wrong product."* | **Negative** | 66.6% | **Product Issue** | 35.1% | **Medium** |
-| 7 | *"The order arrived on time."* | **Negative** | 55.7% | **Delivery Issue** | 44.4% | **Medium** |
-| 8 | *"Can you tell me more about this product?"* | **Neutral** | 43.1% | **Product Issue** | 51.2% | **Medium** |
-
----
-
-## 🛡️ Security & Reliability
-- **Input Validation**: Strict bounds via Pydantic (`min_length=3`, `max_length=5000`).
-- **SQL Injection Prevention**: Parameterized SQLite queries throughout `feedback_service.py` and `database.py`.
-- **CORS Hardening**: Explicit allowed origins configured for local React development (`http://localhost:5173`).
-- **No Hardcoded Secrets**: Environment variable support with `.env.example` templates.
-- **Error Shielding**: No raw internal stack traces exposed to client responses.
-
----
-
-## 🔮 Future Enhancements
-- Integration of modern Transformer LLMs (e.g. RoBERTa or Mistral) for zero-shot multilingual classification.
-- Real-time customer support agent notification webhooks (Slack / Microsoft Teams / Zendesk).
-- Automated AI draft response generation for high-attention grievances.
+## 27. Team Members & Project Credits
+This system was designed, developed, and verified as a University Engineering Major Capstone Project.
+- **Contributor 1:** Machine Learning Pipeline & Text Preprocessing
+- **Contributor 2:** FastAPI Backend & SQLite Architecture
+- **Contributor 3:** React Frontend & Data Visualizations
