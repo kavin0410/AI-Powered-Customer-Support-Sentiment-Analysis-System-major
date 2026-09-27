@@ -1,0 +1,74 @@
+[
+  {
+    "idx": 1,
+    "input": "The product quality is excellent and I am very happy.",
+    "sentiment": "Positive",
+    "sentiment_confidence": 0.429,
+    "issue_category": "Product Issue",
+    "issue_confidence": 0.5018,
+    "attention_level": "Low"
+  },
+  {
+    "idx": 2,
+    "input": "My delivery is three days late.",
+    "sentiment": "Negative",
+    "sentiment_confidence": 0.6168,
+    "issue_category": "Delivery Issue",
+    "issue_confidence": 0.4746,
+    "attention_level": "Medium"
+  },
+  {
+    "idx": 3,
+    "input": "Money was deducted but payment failed.",
+    "sentiment": "Negative",
+    "sentiment_confidence": 0.6172,
+    "issue_category": "Payment Issue",
+    "issue_confidence": 0.7166,
+    "attention_level": "Medium"
+  },
+  {
+    "idx": 4,
+    "input": "The application keeps crashing.",
+    "sentiment": "Negative",
+    "sentiment_confidence": 0.359,
+    "issue_category": "Technical Issue",
+    "issue_confidence": 0.3437,
+    "attention_level": "Medium"
+  },
+  {
+    "idx": 5,
+    "input": "The customer service was very helpful.",
+    "sentiment": "Positive",
+    "sentiment_confidence": 0.6294,
+    "issue_category": "Service Issue",
+    "issue_confidence": 0.7053,
+    "attention_level": "Low"
+  },
+  {
+    "idx": 6,
+    "input": "I received the wrong product.",
+    "sentiment": "Negative",
+    "sentiment_confidence": 0.6658,
+    "issue_category": "Product Issue",
+    "issue_confidence": 0.3507,
+    "attention_level": "Medium"
+  },
+  {
+    "idx": 7,
+    "input": "The order arrived on time.",
+    "sentiment": "Negative",
+    "sentiment_confidence": 0.557,
+    "issue_category": "Delivery Issue",
+    "issue_confidence": 0.444,
+    "attention_level": "Medium"
+  },
+  {
+    "idx": 8,
+    "input": "Can you tell me more about this product?",
+    "sentiment": "Neutral",
+    "sentiment_confidence": 0.4314,
+    "issue_category": "Product Issue",
+    "issue_confidence": 0.512,
+    "attention_level": "Medium"
+  }
+]

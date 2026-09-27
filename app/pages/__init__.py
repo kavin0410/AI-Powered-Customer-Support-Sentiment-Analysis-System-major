@@ -1,0 +1,3 @@
+"""
+App pages package.
+"""
