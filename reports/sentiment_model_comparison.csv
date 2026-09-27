@@ -1,0 +1,5 @@
+Model,Accuracy,Macro Precision,Weighted Precision,Macro Recall,Weighted Recall,Macro F1,Weighted F1
+Logistic Regression,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+Multinomial Naive Bayes,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+Linear SVM,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+Random Forest,0.9399,0.957,0.9461,0.9332,0.9399,0.9422,0.9397
